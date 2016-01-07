@@ -1,0 +1,118 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix ns: <http://creativecommons.org/ns#> .
+@prefix lexinfo2: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix dcr: <http://www.isocat.org/ns/dcr.rdf#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl2xml: <http://www.w3.org/2006/12/owl2-xml#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix synsem: <http://www.w3.org/ns/lemon/synsem#> .
+@prefix decomp: <http://www.w3.org/ns/lemon/decomp#> .
+@prefix vartrans: <http://www.w3.org/ns/lemon/vartrans#> .
+@prefix lime: <http://www.w3.org/ns/lemon/lime#> .
+
+<> 
+    rdfs:label "LexInfo"@en ;
+    terms:issued "2016-01-31"^^xsd:date ;
+    terms:modified "2016-01-31"^^xsd:date ;
+    vann:preferredNamespaceUri <http://www.lexinfo.net/ontology/3.0/lexinfo#> ;
+    owl:versionInfo "3.0" ;
+    rdfs:comment "The lexical information ontology containing a description of commonly used categories for Lemon OntoLex models"@en ;
+    terms:title "LexInfo"@en ;
+    vann:preferredNamespacePrefix "lexinfo" ;
+    terms:rights "CC-BY 4.0" ;
+    terms:creator <http://john.mccr.ae> ;
+    ns:license <http://creativecommons.org/licenses/by/4.0/> .
+
+###############################################################################
+## Relationships
+
+<#abbreviationFor> a owl:ObjectProperty ;
+    rdfs:label "abbreviation for"@en ;
+    rdfs:comment "Indicates that one term is shortened from another by means of dropping some letters or words"@en ;
+    rdfs:subPropertyOf <#contractionFor> .
+
+<#Abbreviation> a owl:Class ;
+    rdfs:label "abbreviation"@en ;
+    rdfs:comment "A shortening of a term by dropping some letter or words"@en ;
+    rdfs:subClassOf <#Contraction> .
+
+<#acronymFor> a owl:ObjectProperty ;
+    rdfs:label "acronym for"@en ;
+    rdfs:comment "Indicates that one term is shortened from another such that the shortened term is pronuncible as a word (c.f. initialism)"@en ;
+    rdfs:subProperty <#contractionFor> .
+
+<#Acronym> a owl:Class ;
+    rdfs:label "acronym"@en ;
+    rdfs:comment "A shortening of a term such that the shortened form is pronuncible as a word"@en ;
+    rdfs:subClassOf <#ContractionRel> .
+
+<#antonym> a owl:ObjectProperty ;
+    rdfs:label "antonym"@en ;
+    rdfs:comment "A sense that has a meaning that is opposite and contrastive to another sense"@en .
+    rdfs:subPropertyOf vartrans:senseRel .
+
+<#Antonym> a owl:Class ;
+    rdfs:label "acronym"@en ;
+    rdfs:comment "A sense that has a meaning that is opposite and contrastive to another sense"@en .
+    rdfs:subClassOf vartrans:SenseRelation .
+
+<#approximateSynonym> a owl:ObjectProperty ;
+    rdfs:label "approximate" ;
+    rdfs:comment "Indicates that two sense are very similar but not exactly the same"@en ;
+    rdfs:subPropertyOf vartrans:senseRel .
+    
+<#ApproximateSynonym> a owl:ObjectProperty ;
+    rdfs:label "approximate" ;
+    rdfs:comment "Indicates that two sense are very similar but not exactly the same"@en ;
+    rdfs:subClassOf vartrans:SenseRelation .
+
+###############################################################################
+## Syntactic roles
+
+<#adjunct> a owl:ObjectProperty ;
+    rdfs:label "adjunct"@en ;
+    rdfs:comment "The role for an argument that is optional"@en ;
+    rdfs:range <#Adjunct> ;
+    rdfs:subPropertyOf synsem:synArg .
+
+<#adpositionalObject> a owl:ObjectProperty ;
+    rdfs:label "adpositional object"@en ;
+    rdfs:comment "An role for an object marked by an adposition"@en ;
+    rdfs:range <#AdpositionalObject> ;
+    rdfs:subPropertyOf <#object> .
+
+<#adverbialComplement> a owl:ObjectProperty ;
+    rdfs:label "adverbial complement"@en ;
+    rdfs:comment "A complement whose argument is an adverb"@en ;
+    rdfs:range <#AdverbialObject> ; # check
+    rdfs:subPropertyOf <#complement> .
+
+<#attributiveArg> a owl:ObjectProperty ;
+    rdfs:label "attributive argument"@en ;
+    rdfs:comment "This is a pseudo-argument expressing the dependency between an adjective/adverb and the words (most frequently noun) it is an attribute of. This is most frequently realized by an adjective before (or after in other languages) a noun"@en ;
+    rdfs:range <#AttributiveArgument> ;
+    rdfs:subPropertyOf vartran:synArg .
+
+###############################################################################
+## Morpho-syntactic properties
+
+<#animacy> a owl:ObjectProperty ;
+    rdfs:label "animacy"@en ;
+    rdfs:comment "The characteristic of a word indicating if it is alive and has its own volition"@en ;
+    skos:example "Japanese iru/aru distinction"@en ;
+    rdfs:range <#Animacy> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#aspect> a owl:ObjectProperty ;
+    rdfs:label "aspect"@en ;
+    rdfs:comment "The characteristic of a word indicating how the word relates to the flow of time"@en ;
+    rdfs:range <#Aspect> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+    
+ 
