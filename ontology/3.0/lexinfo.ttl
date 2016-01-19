@@ -37,40 +37,149 @@
     rdfs:comment "Indicates that one term is shortened from another by means of dropping some letters or words"@en ;
     rdfs:subPropertyOf <#contractionFor> .
 
-<#Abbreviation> a owl:Class ;
-    rdfs:label "abbreviation"@en ;
-    rdfs:comment "A shortening of a term by dropping some letter or words"@en ;
-    rdfs:subClassOf <#Contraction> .
+//<#Abbreviation> a owl:Class ;
+//    rdfs:label "abbreviation"@en ;
+//    rdfs:comment "A shortening of a term by dropping some letter or words"@en ;
+//    rdfs:subClassOf <#Contraction> .
 
 <#acronymFor> a owl:ObjectProperty ;
     rdfs:label "acronym for"@en ;
     rdfs:comment "Indicates that one term is shortened from another such that the shortened term is pronuncible as a word (c.f. initialism)"@en ;
     rdfs:subProperty <#contractionFor> .
 
-<#Acronym> a owl:Class ;
-    rdfs:label "acronym"@en ;
-    rdfs:comment "A shortening of a term such that the shortened form is pronuncible as a word"@en ;
-    rdfs:subClassOf <#ContractionRel> .
+//<#Acronym> a owl:Class ;
+//    rdfs:label "acronym"@en ;
+//    rdfs:comment "A shortening of a term such that the shortened form is pronuncible as a word"@en ;
+//    rdfs:subClassOf <#ContractionRel> .
 
 <#antonym> a owl:ObjectProperty ;
     rdfs:label "antonym"@en ;
     rdfs:comment "A sense that has a meaning that is opposite and contrastive to another sense"@en .
     rdfs:subPropertyOf vartrans:senseRel .
 
-<#Antonym> a owl:Class ;
-    rdfs:label "acronym"@en ;
-    rdfs:comment "A sense that has a meaning that is opposite and contrastive to another sense"@en .
-    rdfs:subClassOf vartrans:SenseRelation .
+//<#Antonym> a owl:Class ;
+//    rdfs:label "acronym"@en ;
+//    rdfs:comment "A sense that has a meaning that is opposite and contrastive to another sense"@en .
+//    rdfs:subClassOf vartrans:SenseRelation .
 
 <#approximateSynonym> a owl:ObjectProperty ;
-    rdfs:label "approximate" ;
+    rdfs:label "approximate"@en ;
     rdfs:comment "Indicates that two sense are very similar but not exactly the same"@en ;
     rdfs:subPropertyOf vartrans:senseRel .
     
-<#ApproximateSynonym> a owl:ObjectProperty ;
-    rdfs:label "approximate" ;
-    rdfs:comment "Indicates that two sense are very similar but not exactly the same"@en ;
-    rdfs:subClassOf vartrans:SenseRelation .
+//<#ApproximateSynonym> a owl:ObjectProperty ;
+//    rdfs:label "approximate"@en ;
+//    rdfs:comment "Indicates that two sense are very similar but not exactly the same"@en ;
+//    rdfs:subClassOf vartrans:SenseRelation .
+
+<#associativeRelation> a owl:ObjectProperty ;
+    rdfs:label "associative relation"@en ;
+    rdfs:comment "Indicates some thematic association between two sense"@en 
+    rdfs:subPropertyOf vartrans:senseRel .
+
+<#causallyRelatedConcept> a owl:ObjectProperty ;
+    rdfs:label "causally related concept"@en ;
+    rdfs:comment "Indicates that concepts are related by virtue of one causing another"@en ;
+    rdfs:subPropertyOf skos:semanticRelation .
+
+<#clippedTermFor> a owl:ObjectProperty ;
+    rdfs:label "clipped term for"@en ;
+    rdfs:comment "A shortening of a single term by dropping some of its letters, e.g. 'flu' is a clipped term for 'influenza'"@en ;
+    rdfs:subPropertyOf <#contractionFor> .
+
+<#collocation> a owl:ObjectProperty ;
+    rdfs:label "collocation"@en ;
+    rdfs:comment "Indicates two words that co-occur together significantly more than by chance so as to form a fixed phrase, e.g., 'strong tea'"@en ;
+    rdfs:subPropertyOf vartrans:senseRel .
+
+<#contractionFor> a owl:ObjectProperty ;
+    rdfs:label "contraction for"@en ;
+    rdfs:comment "A term that is derived from another by shortening without change in meaning"@en ;
+    owl:inverseOf <#fullFormFor> ;
+    rdfs:subPropertyOf vartrans:senseRel .
+
+// <#coordinateConcept> removed - not important
+
+<#derivedForm> a owl:ObjectProperty ;
+    rdfs:label "derived form"@en ;
+    rdfs:comment "Indicates one form was derived from another by some syntactic process. Both terms should be in the same language"@en ;
+    rdfs:subPropertyOf vartrans:lexicalRel .
+
+<#etymologicalRoot> a owl:ObjectProperty ;
+    rdfs:label "etymological root"@en ;
+    rdfs:comment "Indicates that one word was historically derived from another in another language. Note this property is used to link entries and etymologies can also be given by the <#etymology> property"@en ;
+    rdfs:seeAlso <#etymology> ;
+    rdfs:subPropertyOf vartrans:lexicalRel .
+
+// <#exact> removed - use skos:exactMatch
+    
+<#fullFormFor> a owl:ObjectProperty ;
+    rdfs:label "full form for"@en ;
+    rdfs:comment "Indicates the full form of a contraction, the object of the property should be another lexical sense derived from another term by shortening without change in meaning"@en ;
+    owl:inverseOf <#contractionFor> ;
+    rdfs:subPropertyOf vartrans:senseRel .
+
+<#geographicalVariant> a owl:ObjectProperty ;
+    rdfs:label "geographical variant"@en ;
+    rdfs:comment "Indicates that a form is only used in a specific geographical region"@en ;
+    rdfs:subPropertyOf vartrans:lexicalRel .
+
+<#head> a owl:ObjectProperty ;
+    rdfs:label "head (of phrase)"@en ;
+    rdfs:comment "Allows the indication the lexical entry for the head word in a multiword expression"@en ;
+    rdfs:subPropertyOf vartrans:lexicalRel .
+
+<#holonymTerm> a owl:ObjectProperty ;
+    rdfs:label "holonym"@en ;
+    rdfs:comment "Indicates that the target concept constitutes this concept"@en ;
+    rdfs:subPropertyOf skos:semanticRelation .
+
+<#homograph> a owl:ObjectProperty ;
+    rdfs:label "homograph"@en ;
+    rdfs:comment "A relation between words that are written the same but pronounced differently (and distinct in origin and meaning)"@en ;
+    rdfs:subPropertyOf vartrans:lexicalRel .
+
+<#homonym> a owl:ObjectProperty ;
+    rdfs:label "homonym"@en ;
+    rdfs:comment "A relation between words that are written the same and pronounced the same but distinct in origin and meaning"@en ;
+    rdfs:subPropertyOf vartrans:homograph, vartrans:homophone .
+
+<#homophone> a owl:ObjectProperty ;
+    rdfs:label "homophone"@en ;
+    rdfs:comment "A relation between words that are written differently but pronounced the same (and distinct in origin and meaning)"@en ;
+    rdfs:subPropertyOf vartrans:lexicalRel .
+
+<#hypernym> a owl:ObjectProperty ;
+    owl:equivalentProperty skos:broader .
+
+<#hyponym> a owl:ObjectProperty ;
+    owl:equivalentProperty skos:narrower .
+
+<#initialismFor> a owl:ObjectProperty ;
+    rdfs:label "initialism for"@en ;
+    rdfs:comment "Indicates this term has been derived for another by taking only the first letter and pronouncing each letter individually"@en ;
+    skos:example "USA is an initialism for 'United States of America'"@en ;
+    rdfs:subPropertyOf <#contractionFor> .
+
+<#memberHolonym> a owl:ObjectProperty ;
+    rdfs:label "member holonym"@en ;
+    rdfs:comment "Indicates that this object is a member of the target (this object is still whole)"@en ;
+    owl:inverseOf <#memberMeronym> ;
+    rdfs:subPropertyOf <#holonymTerm> .
+
+<#memberMeronym> a owl:ObjectProperty ;
+    rdfs:label "member meronym"@en ;
+    rdfs:comment "Indicates this this object contains the target (the target is still whole)"@en ;
+    owl:inverseOf <#memberHolonym> ;
+    rdfs:subPropertyOf <#meronymTerm> .
+
+<#meronymTerm> a owl:ObjectProperty ; 
+    rdfs:label "meronym"@en ;
+    rdfs:comment "Indicates that the target concept is in some sense made up of this concept"@en ;
+    owl:inverseOf <#holonymTerm> ;
+    rdfs:subPropertyOf skos:semanticRelation .
+
+    
 
 ###############################################################################
 ## Syntactic roles
@@ -97,22 +206,225 @@
     rdfs:label "attributive argument"@en ;
     rdfs:comment "This is a pseudo-argument expressing the dependency between an adjective/adverb and the words (most frequently noun) it is an attribute of. This is most frequently realized by an adjective before (or after in other languages) a noun"@en ;
     rdfs:range <#AttributiveArgument> ;
-    rdfs:subPropertyOf vartran:synArg .
+    rdfs:subPropertyOf synsem:synArg .
+
+<#clausalArg> a owl:ObjectProperty ;
+    rdfs:label "clausal argument"@en ;
+    rdfs:comment "An argument that must be realized by a clause"@en ;
+    rdfs:range <#ClausalArgument> ;
+    rdfs:subPropertyOf synsem:synArg .
+
+<#comparativeAdjunct> a owl:ObjectProperty ;
+    rdfs:label "comparative adjunct"@en ;
+    rdfs:comment "The adjunct in a comparative phrase, in English this is marked with 'than'"@en ;
+    rdfs:range <#ComparativeAdjunct> ;
+    rdfs:subPropertyOf <#predicativeAdjunct> .
+
+<#complement> a owl:ObjectProperty ;
+    rdfs:label "complement"@en ;
+    rdfs:comment "Any argument that is required for a frame and is not a nominal object or subject"@en ;
+    rdfs:range <#Complement> ;
+    rdfs:subPropertyOf synsem:synArg .
+
+<#copulativeArg> a owl:ObjectProperty ;
+    rdfs:label "copulative argument"@en ;
+    rdfs:comment "An argument of a noun or adjective mediated by a copula. This is used to describe frames for lexical entries that are formed with the help of a copula such as 'to be' in English. e.g., in 'X is Adj' X can be said to be the copulative argument of the adjective. Note it is important when describing the semantics of classifying adjectives and nouns to indicate that they can be used as a predicate or an attribute as many adjectives, e.g., 'afraid' vs. 'former', can only be used one way. The recommended method for this in LexInfo is to associate the noun or adjective with a frame with a copulative argument."@en ;
+    rdfs:seeAlso <#copulativeSubject> .
+    rdfs:subPropertyOf synsem:synArg .
+
+<#copulativeSubject> a owl:ObjectProperty ;
+    rdfs:label "copulative subject"@en ;
+    rdfs:comment "A copulative argument that can only be realized in syntactic position, e.g., for adjectives"@en ;
+    rdfs:subPropertyOf <#copulativeArg> .
+
+<#declarativeClause> a owl:ObjectProperty ;
+    rdfs:label "declarative clause"@en ;
+    rdfs:comment "A declarative clause used as an argument in a frame"@en ;
+    // In contrast to?
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#directObject> a owl:ObjectProperty ;
+    rdfs:label "direct object"@en ;
+    rdfs:comment "Indicates the direct nominal object of a verb"@en ;
+    rdfs:subPropertyOf <#object> .
+
+<#genitiveObject> a owl:ObjectProperty ;
+    rdfs:label "genitive object"@en ;
+    rdfs:comment "A nominal object of a verb realized with the genitive case"@en ;
+    skos:example "Some verbs in German, e.g., 'gedenken'"@en ;
+    rdfs:subPropertyOf <#object> .
+
+<#gerundClause> a owl:ObjectProperty ;
+    rdfs:label "gerund clause"@en ;
+    rdfs:comment "A gerund clause is a clause realized with a gerund"@en ;
+    skos:example "I don't like *giving examples* -- Is a gerund clause object"@en ;
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#indirectObject> a owl:ObjectProperty ;
+    rdfs:label "indirect object"@en ;
+    rdfs:comment "An indirect nominal object or a nominal object marked with the dative case"@en ;
+    rdfs:subPropertyOf <#object> .
+
+<#infinitiveClause> a owl:ObjectProperty ;
+    rdfs:label "infinitive clause"@en ;
+    rdfs:comment "A clausal argument realized with an infinitive verb"@en ;
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#interrogativeClause> a owl:ObjectProperty ;
+    rdfs:label "interrogative clause"@en ;
+    rdfs:comment "A clausal argument realized with a clause syntactically realized as a question with an interrogative word"@en ;
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#interrogativeInfinitiveClause> a owl:ObjectProperty ;
+    rdfs:label "interrogative infinitive clause"@en ;
+    rdfs:comment "A clausal argument realized with an interrogative word and a verb in the infinitive form"@en ;
+    skos:example "I don't know *how to explain this* -- Is an example of an IIC"@en ;
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#object> a owl:ObjectProperty ;
+    rdfs:label "object"@en ;
+    rdfs:comment "The required (non-subject) arguments of a verb"@en ;
+    rdfs:subPropertyOf synsem:synArg .
+
+<#objectComplement> a owl:ObjectProperty ;
+    rdfs:label "object complement"@en ;
+    rdfs:comment "A complement that immediately follows the object and changes the meaning"@en ;
+    skos:example "I call her Heidi -- Heidi is the object complement"@en ;
+    rdfs:range <#ObjectComplement> ;
+    rdfs:subPropertyOf <#complement> .
 
 ###############################################################################
 ## Morpho-syntactic properties
+
+<#morphosyntacticProperty> a owl:ObjectProperty ;
+    rdfs:label "morphosyntactic property"@en ;
+    rdfs:comment "Any property of a word or one of its forms. These properties may be applied to lexical entries (or, rarely, lexical senses) in which case they are understood to be inherent properties of that lexical entry (sense). Alternatively they may be applied to forms (or equivalently components) in which case they are assumed to be specific properties or agreements of the particular word form."@en ;
+    rdfs:domain [
+        owl:UnionOf ( ontolex:Form ontolex:LexicalEntry ontolex:LexicalSense synsem:Component ) ] ;
+    rdfs:range <#MorphosyntacticProperty> .
 
 <#animacy> a owl:ObjectProperty ;
     rdfs:label "animacy"@en ;
     rdfs:comment "The characteristic of a word indicating if it is alive and has its own volition"@en ;
     skos:example "Japanese iru/aru distinction"@en ;
     rdfs:range <#Animacy> ;
-    rdfs:subPropertyOf <#morphosyntacticProperty> .
+    rdfs:subPropertyOf <#nounClass> .
 
 <#aspect> a owl:ObjectProperty ;
     rdfs:label "aspect"@en ;
-    rdfs:comment "The characteristic of a word indicating how the word relates to the flow of time"@en ;
+    rdfs:comment "The characteristic of a word indicating how the word relates to the flow of time, such as imperfect or perfect"@en ;
     rdfs:range <#Aspect> ;
     rdfs:subPropertyOf <#morphosyntacticProperty> .
     
- 
+<#case> a owl:ObjectProperty ;
+    rdfs:label "case"@en ;
+    rdfs:comment "The syntactic indication of the role played by a noun (phrase) in a sentence, such as nominative or accusative"@en ;
+    rdfs:range <#Case> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#cliticness> a owl:ObjectProperty ;
+    rdfs:label "cliticness"@en ;
+    rdfs:comment "Indicates if a word is a clitic, a word that has the syntactic characteristics of a word but is phonologically dependent, e.g., the contraction 've from have is a clitic. This property is deprecated in favour of isClitic."@en ;
+    rdfs:range <#Cliticness> ;
+    dct:isReplacedBy <#Clitic> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#dating> a owl:ObjectProperty ;
+    rdfs:label "dating"@en ;
+    rdfs:comment "Indicates if a term is considered to be of modern usage or not"@en ;
+    rdfs:range <#Dating> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#definiteness> a owl:ObjectProperty ;
+    rdfs:label "definiteness"@en ;
+    rdfs:comment "Indicates if a word is definite, i.e., whether it refers to a identifiable or novel entity in a discourse."
+    skos:example "In English definiteness is marked on the article 'the', 'a' but in Danish this is marked by inflection of the noun"@en ;
+    rdfs:range <#Definiteness> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#degree> a owl:ObjectProperty ;
+    rdfs:label "degree (of comparison)"@en ;
+    rdfs:comment "Indicates if an adjective (or adverb) is in its comparative or superlative form"@en
+    skos:example "Marked with '-er' or '-est' in English"@en ;
+    rdfs:range <#Degree> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+// Usage note - now a datatype property (was an object 
+<#isFinite> a owl:DatatypeProperty ;
+    rdfs:label "finiteness"@en ;
+    rdfs:comment "Indicates if a verb is finite or infinite"@en ;
+    rdfs:range xsd:boolean ;
+    dct:replaces lexinfo2:finiteness ;
+    rdfs:subPropertyOf <#booleanMorphosyntacticProperty> .
+
+<#frequency> a owl:ObjectProperty ;
+    rdfs:label "frequency (of use)"@en ;
+    rdfs:comment "Indicates if a word or sense is frequently used"@en ;
+    rdfs:range <#Frequency> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+// NEW!
+
+<#nounClass> a owl:ObjectProperty ;
+    rdfs:label "noun class"@en ;
+    rdfs:comment "A division of nouns into classes that affect the syntactic usage of that term"@en ;
+    rdfs:range <#NounClass> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#gender> a owl:ObjectProperty ;
+    rdfs:label "gender"@en ;
+    rdfs:comment "A categorization of nouns in a language according to a gender scheme that does not in all cases reflect a semantic distinction"@en ;
+    rdfs:range <#Gender> ;
+    rdfs:subPropertyOf <#nounClass> .
+
+<#bantuNounClass> a owl:ObjectProperty ;
+    rdfs:label "Bantu (Meinhof) noun class"@en ;
+    rdfs:comment "The noun classification for Bantu languages as proposed by Karl Meinhof"@en ;
+    rdfs:range <#BantuNounClass> ;
+    rdfs:subPropertyOf <#nounClass> .
+
+<#modificationType> a owl:ObjectPropety ;
+    rdfs:label "modification type"@en ;
+    rdfs:comment "Refers to whether a word modifies a noun in a prenomial or postnomial position"@en ;
+    skos:example "In French some adjectives can only be placed before a noun (e.g., 'petit') or after (e.g., 'anglais')"@en ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#mood> a owl:ObjectProperty ;
+    rdfs:label "mood"@en ;
+    rdfs:comment "The mood of verb or statement, in particular whether it is a statement of fact, desire or supposition"@en ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#negative> a owl:ObjectProperty ;
+    rdfs:label "negative"@en ;
+    rdfs:comment "Indicates a form of a word used to negate the meaning of a sentence"@en ;
+    skos:example "In Japanese negation is marked by inflection of the verb or adjective"@en ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#termStatus> a owl:ObjectProperty ;
+    rdfs:label "term status"@en ;
+    rdfs:comment "The administrative status of the lexical element. It is preferred that this is attached to the lexical entry but may be added to any part of the lexicon"@en ;
+    rdfs:range <#TermStatus> .
+
+<#number> a owl:ObjectProperty ;
+    rdfs:label "number"@en ;
+    rdfs:comment "Indicates the number of elements referred to a noun, most frequently distinguishing one (singular) and two or more (plural)"@en ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+###############################################################################
+## Annotations
+
+<#etymology> a owl:AnnotationProperty ;
+    rdfs:label "etymology"@en
+    rdfs:comment "Allows for a description of the derivation of a term"@en
+    rdfs:seeAlso <#etymologicalRoot> .
+
+// <#explanation> removed - use rdfs:comment
+// <#gloss> removed - use skos:definition
+// <#note> removed - use rdfs:comment
+
+###############################################################################
+## Word classes
+
+<#Clitic> a owl:Class .
+
+// Preposition modificationType only premodified
