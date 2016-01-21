@@ -102,7 +102,7 @@
 
 <#derivedForm> a owl:ObjectProperty ;
     rdfs:label "derived form"@en ;
-    rdfs:comment "Indicates one form was derived from another by some syntactic process. Both terms should be in the same language"@en ;
+    rdfs:comment "Indicates the target form was derived from this word by some syntactic process. Both terms should be in the same language"@en ;
     rdfs:subPropertyOf vartrans:lexicalRel .
 
 <#etymologicalRoot> a owl:ObjectProperty ;
@@ -111,7 +111,7 @@
     rdfs:seeAlso <#etymology> ;
     rdfs:subPropertyOf vartrans:lexicalRel .
 
-// <#exact> removed - use skos:exactMatch
+<#exact> owl:equivalentProperty skos:exactMatch .
     
 <#fullFormFor> a owl:ObjectProperty ;
     rdfs:label "full form for"@en ;
@@ -132,7 +132,7 @@
 <#holonymTerm> a owl:ObjectProperty ;
     rdfs:label "holonym"@en ;
     rdfs:comment "Indicates that the target concept constitutes this concept"@en ;
-    rdfs:subPropertyOf skos:semanticRelation .
+    rdfs:subPropertyOf <#partitiveRelation> .
 
 <#homograph> a owl:ObjectProperty ;
     rdfs:label "homograph"@en ;
@@ -177,9 +177,54 @@
     rdfs:label "meronym"@en ;
     rdfs:comment "Indicates that the target concept is in some sense made up of this concept"@en ;
     owl:inverseOf <#holonymTerm> ;
+    rdfs:subPropertyOf <#partitiveRelation> .
+
+<#partHolonym> a owl:ObjectProperty ;
+    rdfs:label "part holonym"@en ;
+    rdfs:comment "Indicates that this object is a distinct, non-integral part of the target"@en ;
+    owl:inverseOf <#partMeronym> ;
+    rdfs:subPropertyOf <#holonymTerm> .
+
+<#partMeronym> a owl:ObjectProperty ;
+    rdfs:label "part meronym"@en ;
+    rdfs:comment "Indicates that the target is a distinct, non-integral part of this object"@en ;
+    owl:inverseOf <#partHolonym> ;
+    rdfs:subPropertyOf <#meronymTerm> . 
+
+<#partitiveRelation> a owl:ObjectProperty ;
+    rdfs:label "partitive relations"@en ;
+    rdfs:comment "Indicates a relationship where one object is a part of another"@en ;
     rdfs:subPropertyOf skos:semanticRelation .
 
-    
+<#pertainsTo> a owl:ObjectProperty ;
+    rdfs:label "pertains to"@en ;
+    rdfs:comment "Indicates that one concept strongly connects to another"@en ;
+    rdfs:subPropertyOf skos:semanticRelation .
+
+<#quasiEquivalent> owl:equivalentProperty skos:closeMatch .
+<#relatedTerm> owl:equivalentProperty skos:related .
+
+<#root> a owl:ObjectProperty ;
+    rdfs:label "root"@en ;
+    rdfs:comment "Indicates that the target is the base form of this word"@en ;
+    rdfs:seeAlso <#derivedForm> ;
+    rdfs:subPropertyOf synsem:lexicalRel .
+
+// <#shortFormFor> is exactly the same as <#contractionFor>
+
+<#substanceHolonym> a owl:ObjectProperty ;
+    rdfs:label "substance holonym"@en ;
+    rdfs:comment "Indicates that this object is the substance from which the target is made"@en ;
+    owl:inverseOf <#substanceMeronym> ;
+    rdfs:subPropertyOf <#holonymTerm> .
+
+<#substanceMeronym> a owl:ObjectProperty ;
+    rdfs:label "substance meronym"@en ;
+    rdfs:comment "Indicates that this object is made from the target substance"@en ;
+    owl:inverseOf <#substanceHolonym> ;
+    rdfs:substanceHolonym <#meronymTerm> .
+
+<#synonym> owl:equivalentProperty skos:exactMatch .
 
 ###############################################################################
 ## Syntactic roles
@@ -292,6 +337,1288 @@
     skos:example "I call her Heidi -- Heidi is the object complement"@en ;
     rdfs:range <#ObjectComplement> ;
     rdfs:subPropertyOf <#complement> .
+
+// Maybe should be renamed adjective complement
+<#predicativeAdjective> a owl:ObjectProperty ;
+    rdfs:label "predicative adjective"@en ;
+    rdfs:comment "An adjective acting as a complement to a verb"@en ;
+    skos:example "it sunk *low*"@en ;
+    rdfs:range <#PredicativeAdjective> ;
+    rdfs:subPropertyOf <#complement> .
+
+<#predicativeAdjunct> a owl:ObjectProperty ;
+    rdfs:label "predicative adjunct"@en ;
+    rdfs:comment "An adjunct to a predicative adjective"@en ;
+    skos:example "biggest *in the world*"@en ;
+    rdfs:subPropertyOf <#adjunct> .
+
+<#predicativeAdverb> a owl:ObjectProperty ;
+    rdfs:label "predicative adverb"@en ;
+    rdfs:comment "An adverb acting as a complement to a verb"@en ;
+    skos:example "he seemed *well*"@en ;
+    rdfs:range <#PredicativeAdverb> ;
+    rdfs:subPropertyOf <#adjunct> .
+
+<#predicativeNominative> a owl:ObjectProperty ;
+    rdfs:label "predicative nominative"@en ;
+    rdfs:comment "A noun acting as a complement to a verb"@en ;
+    skos:example "he seemed *a fool*"@en ;
+    rdfs:range <#PredicativeNominative> ;
+    rdfs:subPropertyOf <#adjunct> .
+
+<#prepositionalAdjunct> a owl:ObjectProperty ;
+    rdfs:label "prepositional adjunct"@en ;
+    rdfs:comment "An adjunct argument formed with a preposition"@en ;
+    rdfs:range <#PrepositionalAdjunct> ;
+    rdfs:subPropertyOf <#prepositionalAdjunct> .
+
+<#prepositionalGerundClause> a owl:ObjectProperty ;
+    rdfs:label "prepositional gerund clause"@en ;
+    rdfs:comment "A clausal argument marked with a preposition and a gerund"@en ;
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#prepositionalInterrogativeClause> a owl:ObjectProperty ;
+    rdfs:label "prepositional interrogative clause"@en ;
+    rdfs:comment "A clausal argument marked with a prepositiona and an interrogative word"@en ;
+    rdfs:subPropertyOf <#clausalArg> .
+
+<#prepositionalObject> a owl:ObjectProperty ;
+    rdfs:label "prepositional object"@en ;
+    rdfs:comment "An object marked with a preposition"@en ;
+    rdfs:subPropertyOf <#adpositionalObject> .
+
+<#sententialClause> a owl:ObjectProperty ;
+    rdfs:label "sentential clause"@en ;
+    rdfs:comment "A clausal argument which is not marked and thus follows the same syntax as a main clause"@en ;
+    rdfs:subPropertyOf <#clausalArg> . 
+
+<#subject> a owl:ObjectProperty ;
+    rdfs:label "subject"@en ;
+    rdfs:comment "The subject of a verb, that is the agent or theme of the verb"@en ;
+    rdfs:subProperty synsem:synArg .
+
+<#subjunctiveClause> a owl:ObjectProperty ;
+    rdfs:label "subjunctive clause"@en ;
+    rdfs:comment "A clausal argument marked with the use of the subjunctive mood"@en ;
+    rdfs:subPropertyOf <#clausalArg> . 
+
+<#superlativeAdjunct> a owl:ObjectProperty ;
+    rdfs:label "superlative adjunct"@en ;
+    rdfs:comment "The argument of a superlative adjunct, indicating the set of objects for which the theme object is the superlative element"@en ;
+    rdfs:subPropertyOf <#predicativeAdjunct> .
+
+###############################################################################
+## Arguments
+
+<#AccusativePostPositiveArgument> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#PostPositiveArgument>
+            [ a owl:Restriction ;
+              owl:onProperty synsem:marker ;
+              owl:hasValue <#accusativeCase> ] ) ] .
+
+<#Adjunct> a owl:Class ;
+    rdfs:equivalentClass [
+        owl:intersectionOf (
+            synsem:SyntacticArgument
+            [ a owl:Restriction ;
+              owl:onProperty synsem:optional ;
+              owl:hasValue true ] ) ] .
+
+<#AdpositionalObject> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#Object>
+            [ a owl:Restriction ;
+              owl:onProperty synsem:marker ;
+              owl:someValuesFrom <Adposition> ] ) ] .
+
+<#AttributiveArgument> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument .
+
+<#ClausalArgument> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument .
+
+<#ComparativeAdjunct> a owl:Class ;
+    rdfs:subClassOf <#Adjunct> .
+
+<#Complement> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument .
+
+<#DativePostPositiveArgument> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#PostPositiveArgument> ;
+            [ a owl:Restriction ;
+              owl:onProperty synsem:marker ;
+              owl:hasValue <#dativeCase> ] ) ] .
+
+<#DeclarativeClause> a owl:Class ;
+    rdfs:comment "A clause beginning with the declarative conjunction (\"that\" in English)"@en ;
+    rdfs:subClassOf <#ClausalArgument> .
+
+<#DirectObject> a owl:Class ;
+    rdfs:subClassOf <#Object> .
+
+<#GenitiveArgument> a owl:Class ;
+    owl:equivalentClass [
+       owl:intersectionOf (
+            synsem:SyntacticArgument 
+            [ a owl:Restriction ;
+              owl:onProperty synsem:marker ;
+              owl:hasValue <#genitiveCase> ] ) ] .
+
+<#GenitiveObject> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf ( <#Object> <#GenitiveArgument> ) ] .
+
+<#GenitivePostPositiveArgument> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf ( <#PostPositiveArgument> <#GenitiveArgument> ) ] .
+
+<#IndirectObject> a owl:Class ;
+    rdfs:subClassOf <#Object> .
+
+<#InfinitiveClause> a owl:Class ;
+    rdfs:subClassOf <#ClausalArgument> .
+
+<#Object> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument ,
+                    [ a owl:Restriction ;
+                      owl:onProperty synsem:optional ;
+                      owl:hasValue false ] .
+
+<#ObjectComplement> a owl:Class ;
+    rdfs:subClassOf <#Complement> .
+
+<#PossessiveAdjunct> a owl:Class ;
+    rdfs:subClassOf <#Adjunct> .
+
+<#PostPositiveArgument> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument .
+
+<#PredicativeAdjective> a owl:Class ;
+    rdfs:subClassOf <#Complement> .
+
+<#PredicativeAdverb> a owl:Class ;
+    rdfs:subClassOf <#Complement> .
+
+<#PredicativeNominative> a owl:Class ;
+    rdfs:subClassOf <#Complement> .
+
+<#PrepositionalAdjunct> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#Adjunct> 
+            [ a owl:Restriction ;
+              owl:onProperty synsem:marker ;
+              owl:someValuesFrom <#Preposition> ] ) ] .
+
+<#PrepositionalObject> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#AdpostionalObject>
+            [ a owl:Restriction ;
+              owl:onProperty synsem:marker ;
+              owl:someValuesFrom <#Preposition> ] ) ] .
+ 
+<#ReflexiveObject>
+    a owl:Class ;
+    rdfs:subClassOf <#Object> .
+
+<#Subject>
+    a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument, [
+        a owl:Restriction ;
+        owl:hasValue false ;
+        owl:onProperty synsem:optional
+    ] .
+
+<#SubjunctiveClause> a owl:Class ;
+    rdfs:comment "A subclause that is in the subjunctive mood"@en ;
+    rdfs:subClassOf <#ClausalArgument> .
+
+<#SuperlativeAdjunct>
+    a owl:Class ;
+    rdfs:subClassOf <#Adjunct> .
+
+
+
+###############################################################################
+## Frame
+
+<#AdjectivalComplementFrame> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#VerbFrame>
+            [ a owl:Restriction ;
+              owl:onProperty <#predicativeAdjective> ;
+              owl:minCardinality 1 ] ) ] .
+
+<#AdjectiveAccusativePostPositiveFrame> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            <#AdjectivePostPositiveFrame> 
+            [ a owl:Restriction ;
+              owl:onProperty <#postPositiveArg> ;
+              owl:someValuesFrom <#AccusativePostPositiveArgument> ] ) ] ;
+    skos:example "wird wurden unseren irrtum GEWAHR"@de .
+
+<#AdjectiveAttributiveFrame>
+    skos:example "the RED ball"@en ;
+    a owl:Class ;
+    rdfs:subClassOf :AdjectiveFrame ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf ( <#AdjectiveFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#attributiveArg>
+            ]
+        )
+    ] .
+
+<#AdjectiveComparativeFrame>
+    skos:example "new york is BIGGER THAN berlin"@en ;
+    a owl:Class ;
+    rdfs:subClassOf :AdjectiveFrame ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf ( <#AdjectiveFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#comparativeAdjunct>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeSubject>
+            ]
+        )
+    ] .
+
+<#AdjectiveDativePostPositiveFrame>
+    skos:example "er ist seinem bruder ÄHNLICH"@de ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectivePostPositiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectivePostPositiveFrame>
+            [
+                a owl:Restriction ;
+                owl:onProperty <#postPositiveArg> ;
+                owl:someValuesFrom <#DativePostPositiveArgument>
+            ]
+        )
+    ] .
+
+<#AdjectiveFrame>
+    a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticFrame .
+
+<#AdjectiveGenitivePostPositiveFrame>
+    skos:example "er ist des hochverrats SCHULDIG"@de ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectivePostPositiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectivePostPositiveFrame>
+            [
+                a owl:Restriction ;
+                owl:onProperty <#postPositiveArg> ;
+                owl:someValuesFrom <#GenitivePostPositiveArgument>
+            ]
+        )
+    ] .
+
+<#AdjectiveImpersonalFrame>
+    skos:example "es ist mir HEISS"@de ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectiveFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#object>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeSubject>
+            ]
+        )
+    ] .
+
+<#AdjectivePPFrame>
+    skos:example "he is RELATED TO her"@en ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectivePredicativeFrame>
+            <#PrepositionalFrame>
+        )
+    ] .
+
+<#AdjectivePostPositiveFrame>
+    skos:example "that is something INTERESTING"@en ;
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.lexinfo.net/ontology/2.0/lexinfo> ;
+    rdfs:subClassOf :AdjectiveFrame ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:AdjectiveFrame
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :copulativeArg
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :postPositiveArg
+            ]
+        )
+    ] .
+
+<#AdjectivePredicateFrame>
+    a owl:Class ;
+    rdfs:comment "Note this frame should be used when both attributive and predicative use of the adjective is allowed"@en ;
+    rdfs:subClassOf <#AdjectiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectiveAttributiveFrame>
+            <#AdjectivePredicativeFrame>
+        )
+    ] .
+
+<#AdjectivePredicativeFrame>
+    skos:example "he is HAPPY"@en ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectiveFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeSubject>
+            ]
+        )
+    ] .
+
+<#AdjectiveScaleFrame>
+    skos:example "Everest is 8,848m HIGH"@en ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf ([
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#adverbialComplement>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeSubject>
+            ]
+        )
+    ] .
+
+<#AdjectiveSuperlativeFrame>
+    skos:example "tokyo is the BIGGEST of all metropoles"@en ;
+    a owl:Class ;
+    rdfs:subClassOf <#AdjectiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectiveFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#superlativeAdjunct>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeSubject>
+            ]
+        )
+    ] .
+
+<#AdverbialComplementFrame>
+    a owl:Class ;
+    rdfs:subClassOf <#VerbFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#predicativeAdverb>
+            ]
+        )
+    ] .
+
+<#DativeTransitiveFrame>
+    skos:example "ich DANKE dir"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#indirectObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#DeclarativeFrame> a owl:Class ;
+    rdfs:comment "Declarative frames take a clause as an argument, this argument is marker with the declarative conjunction (\"that\" in English)"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#declarativeClause>
+            ]
+        )
+    ] .
+
+<#DitransitiveDoubleAccusativeFrame>
+    skos:example "das KOSTET ihn sein leben"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "2"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#DitransitiveFrame>
+    skos:example "i GAVE him it"@en, "mein vater SCHREIBT ihr einen brief"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#indirectObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#DitransitiveFrame_For>
+    skos:example """she BOUGHT him it
+she BOUGHT it FOR him"""@en ;
+    a owl:Class ;
+    rdfs:subClassOf <#DitransitiveFrame> .
+
+<#DitransitiveFrame_To>
+    skos:example """he GAVE his mother a present
+he GAVE a present TO his mother"""@en ;
+    a owl:Class ;
+    rdfs:subClassOf <#DitransitiveFrame> .
+
+<#GenitiveDitransitiveFrame>
+    skos:example "man KLAGTE ihn des diebstahls AN"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#genitiveObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#GenitiveTransitiveFrame>
+    skos:example "wir BEDENKEN jenes mannes"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#genitiveObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#GerundACFrame> a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ArbitraryControl>
+            <#GerundFrame>
+        )
+    ] .
+
+:GerundFrame a owl:Class ;
+    rdfs:comment "Indicates one of the arguments is a gerund clause"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:onProperty synsem:synArg ;
+                owl:someValuesFrom <#Gerund>
+            ]
+        )
+    ] .
+
+<#GerundOCFrame> a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#GerundFrame>
+            <#ObjectControl>
+        )
+    ] .
+
+<#GerundSCFrame> a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#GerundFrame>
+            <#SubjectControl>
+        )
+    ] .
+
+<#ImpersonalFrame> a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#ImpersonalIntransitiveFrame> a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ImpersonalFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#object>
+            ]
+        )
+    ] .
+
+<#ImpersonalIntransitivePPFrame>
+    skos:example "it REEKS OF tar"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ImpersonalIntransitiveFrame>
+            <#PrepositionalFrame>
+        )
+    ] .
+
+<#ImpersonalTransitiveFrame>
+    skos:example "es JUCKT mich"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ImpersonalFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+        )
+    ] .
+
+<#InfinitiveFrame> a owl:Class ;
+    rdfs:comment "Infinitive frames take an infinitive clause as an argument"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#infinitiveClause>
+            ]
+        )
+    ] .
+
+<#InterrogativeFrame> a owl:Class ;
+    rdfs:comment "Indicates the frame has a subframe indicated with the appropriate interrogative (e.g., \"who\", \"where\", \"how\")"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#interrogativeClause>
+            ]
+        )
+    ] .
+
+
+<#InterrogativeInfinitiveFrame> a owl:Class ;
+    rdfs:comment "Indicates the frame has an argument that is a clause with both an interrogative and the clause is in the infinitive form"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#interrogativeInfinitiveClause>
+            ]
+        )
+    ] .
+
+<#IntransitiveAdjectivalComplementFrame>
+    skos:example "his reputation SANK low"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#IntransitiveFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#predicativeAdjective>
+            ]
+        )
+    ] .
+
+<#IntransitiveAdverbialComplementFrame>
+    skos:example "he SEEMED well"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#IntransitiveFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#predicativeAdverb>
+            ]
+        )
+    ] .
+
+<#IntransitiveDeclarativeFrame>
+    skos:example "i KNOW [that is a bad idea]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#DeclarativeFrame>
+            <#IntransitiveFrame>
+        )
+    ] .
+
+<#IntransitiveFrame>
+    skos:example "he LEFT"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#IntransitiveInfinitiveACFrame>
+    skos:example "I HELPED [to save the child]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ArbitraryControl>
+            <#InfinitiveFrame>
+            <#IntransitiveFrame>
+        )
+    ] .
+
+<#IntransitiveInfinitiveRSFrame>
+    skos:example "he SEEMED [to be happy]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InfinitiveFrame>
+            <#IntransitiveFrame>
+            <#RaisingSubject>
+        )
+    ] .
+
+<#IntransitiveInfinitiveSCFrame>
+    skos:example "I WANTED [to come]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InfinitiveFrame>
+            <#IntransitiveFrame>
+            <#SubjectControl>
+        )
+    ] .
+
+:IntransitiveInterrogativeFrame a owl:Class ;
+    skos:example "he ASKED [what he should do]"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InterrogativeFrame>
+            <#IntransitiveFrame>
+        )
+    ] .
+
+<#IntransitiveInterrogativeInfinitiveFrame>
+    skos:example "he ASKED [what to do]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InterrogativeInfinitiveFrame>
+            <#IntransitiveFrame>
+        )
+    ] .
+
+<#IntransitiveNominalComplementFrame>
+    skos:example "he SEEMED a fool"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#IntransitiveFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#predicativeNominative>
+            ]
+        )
+    ] .
+
+<#IntransitivePPDeclarativeFrame>
+    skos:example "the SUGGESTED to him [that he should go]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#DeclarativeFrame>
+            <#IntransitivePPFrame>
+        )
+    ] .
+
+<#IntransitivePPFrame>
+    skos:example "he TOOK CARE OF her"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#IntransitiveFrame>
+            <#PPFrame>
+        )
+    ] .
+
+<#IntransitiveSententialFrame>
+    skos:example "they THOUGHT he was always late"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#IntransitiveFrame>
+            <#SententialFrame>
+        )
+    ] .
+
+<#NominalComplementFrame>
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#predicativeNominative>
+            ]
+        )
+    ] .
+
+<#NounFrame>
+    a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticFrame .
+
+<#NounPPFrame>
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#NounPredicateFrame>
+            <#PrepositionalFrame>
+        )
+    ] .
+
+<#NounPossessiveFrame>
+    skos:example "the CAPITAL OF france is paris"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#NounFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeArg>
+            ]
+            [
+                a owl:Restriction ;
+                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onClass <#PossessiveAdjunct> ;
+                owl:onProperty <#possessiveAdjunct>
+            ]
+        )
+    ] .
+
+<#NounPredicateFrame>
+    skos:example "he is a MAN"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#NounFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeArg>
+            ]
+        )
+    ] .
+
+<#PPFrame>
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#PrepositionalFrame>
+            <#VerbFrame>
+        )
+    ] .
+
+<#PrepositionFrame> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticFrame .
+
+<#PrepositionalFrame> a owl:Class ;
+    rdfs:comment "Abstract frame for words that take a prepositional phrase as an argument"@en ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            synsem:SyntacticFrame
+            [ a owl:Restriction ;
+              owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+              owl:onProperty <#prepositionalAdjunct> ] ) ] .
+
+<#PrepositionalInterrogativeFrame> a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#prepositionalInterrogativeClause>
+            ]
+        )
+    ] .
+
+<#PrepositionalPhraseFrame>
+    skos:example "he is IN london"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#PrepositionFrame>
+            [
+                a owl:Restriction ;
+                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onClass <#PrepositionalAdjunct> ;
+                owl:onProperty <#complement>
+            ]
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#copulativeSubject>
+            ]
+        )
+    ] .
+
+<#ReciprocalFrame>
+    skos:example "mary and john MET"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "2"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#ReflexiveDativeTransitiveFrame>
+    skos:example "ich TUE mir WEH"@de ;
+    a owl:Class ;
+    rdfs:subClassOf <#ReflexiveFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#DativeTransitiveFrame>
+            <#ReflexiveFrame>
+        )
+    ] .
+
+<#ReflexiveDitransitiveFrame>
+    skos:example "das habe ich mir EINGEBILDET"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#DitransitiveFrame>
+            <#ReflexiveFrame>
+            [
+                a owl:Restriction ;
+                owl:onProperty <#directObject> ;
+                owl:someValuesFrom <#ReflexiveObject>
+            ]
+        )
+    ] .
+
+<#ReflexiveFrame>
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.lexinfo.net/ontology/2.0/lexinfo> ;
+    rdfs:subClassOf <#VerbFrame> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:onProperty <#object> ;
+                owl:someValuesFrom <#ReflexiveObject>
+            ]
+        )
+    ] .
+
+<#ReflexiveReciprocalFrame>
+    skos:example "hans und marie TREFFEN sich"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ReciprocalFrame>
+            <#ReflexiveFrame>
+        )
+    ] .
+
+<#ReflexiveTransitiveFrame>
+    skos:example "elle se COUCHE"@fr, "er ERHOLT sich"@de ;
+    a owl:Class ;
+    rdfs:isDefinedBy <http://www.lexinfo.net/ontology/2.0/lexinfo> ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ReflexiveFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#ReflexiveTransitivePPFrame>
+    skos:example "elle se APPROCHE DE la gare"@fr, "ich ERRINERE mich AN seinen vater"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ReflexiveFrame>
+            <#TransitivePPFrame>
+        )
+    ] .
+
+<#SententialFrame> a owl:Class ;
+    rdfs:comment "Sentential frames take a clause as argument, no conjunction is used and the syntax of the clause is the same as a main clause"@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#sententialClause>
+            ]
+        )
+    ] .
+
+<#SubjectlessFrame>
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "0"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#SubjectlessIntransitiveFrame>
+    skos:example "mir SCHWINDELT"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#SubjectlessFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#indirectObject>
+            ]
+        )
+    ] .
+
+<#SubjectlessIntransitivePPFrame>
+    skos:example "mir TRÄUMT VON jener zeit"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#PPFrame>
+            <#SubjectlessIntransitiveFrame>
+        )
+    ] .
+
+<#SubjectlessTransitiveFrame>
+    skos:example "mich FRIERT"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#SubjectlessFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+        )
+    ] .
+
+<#SubjectlessTransitivePPFrame>
+    skos:example "mich EKELT VOR fleisch"@de ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#PPFrame>
+            <#SubjectlessTransitiveFrame>
+        )
+    ] .
+
+<#TransitiveAdjectivalComplementFrame>
+    skos:example "they PAINTED it red"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdjectivalComplementFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveAdverbialComplementFrame>
+    skos:example "she PUT the cheese back"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#AdverbialComplementFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveDeclarativeFrame>
+    skos:example "he CONVINCED her [that she should go]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#DeclarativeFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveFrame>
+    skos:example "the dog BIT the man"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#VerbFrame>
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#directObject>
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty <#subject>
+            ]
+        )
+    ] .
+
+<#TransitiveInfinitiveACFrame>
+    skos:example "they CONVINCED him [to go]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#ArbitraryControl>
+            <#InfinitiveFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveInfinitiveOCFrame>
+    skos:example "i WANT john [to go]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InfinitiveFrame>
+            <#ObjectControl>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveInfinitiveSCFrame>
+    skos:example "john PROMISED mary [to resign]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InfinitiveFrame>
+            <#SubjectControl>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveInterrogativeFrame>
+    skos:example "he ASKED her [what he should do]"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#InterrogativeFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveInterrogativeInfinitiveFrame>
+    skos:example "he ASKED her [what to do]"@en ;
+    a owl:Class ;
+    rdfs:subClassOf :InterrogativeInfinitiveFrame .
+
+<#TransitiveNominalComplementFrame>
+    skos:example "they ELECTED him president"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#NominalComplementFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitivePPFrame>
+    skos:example "she ADDED salt TO the stew"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#PPFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#TransitiveSententialFrame>
+    skos:example "he TOLD the audience he was leaving"@en ;
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (<#SententialFrame>
+            <#TransitiveFrame>
+        )
+    ] .
+
+<#VerbFrame> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticFrame .
+
+
+
+###############################################################################
+## Control
+
+<#ArbitraryControl> a owl:Class ;
+    rdfs:comment "Indicates either the subject or object of the main clause may be the omitted argument of the subclause"@en ;
+    rdfs:subClassOf <#Control> .
+
+<#Control> a owl:Class ;
+    rdfs:comment "Control indicates how a an argument from a main clause will be utilized in a subclause. This class includes both control structures and raising structures"@en ;
+    rdfs:subClassOf synsem:SyntacticFrame .
+
+<#ObjectControl> a owl:Class ;
+    rdfs:comment "Indicates the object of the main clause is also the (omitted) object of the subclause"@en ;
+    rdfs:subClassOf <#Control> .
+
+<#RaisableSubject> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (<#RaisableArgument> <#Subject>
+        )
+    ] .
+
+<#RaisingSubject> a owl:Class ;
+    rdfs:comment "Indicates the syntactic subject of the main clause is in fact the subject of the subclause. The main clause should then be interpreted as being impersonal."@en ;
+    rdfs:subClassOf <#Control> ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty <#subject> ;
+        owl:someValuesFrom <#RaisableSubject>
+    ] .
+
+<#RaisableArgument> a owl:Class ;
+    rdfs:subClassOf synsem:SyntacticArgument .
+
+<#SubjectControl> a owl:Class ;
+    rdfs:comment "Indicates the subject of the main clause is the (omitted) subject of the subclause"@en ;
+    rdfs:subClassOf <#Control> .
 
 ###############################################################################
 ## Morpho-syntactic properties
@@ -410,6 +1737,82 @@
     rdfs:comment "Indicates the number of elements referred to a noun, most frequently distinguishing one (singular) and two or more (plural)"@en ;
     rdfs:subPropertyOf <#morphosyntacticProperty> .
 
+<#partOfSpeech> a owl:ObjectProperty ;
+    rdfs:label "part of speech"@en ;
+    rdfs:comment "Indicates a class that decides the acceptable syntactic usage and morphological paradigm of a word"@en ;
+    rdfs:range <#PartOfSpeech> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#person> a owl:ObjectProperty ;
+    rdfs:label "person"@en ;
+    rdfs:comment "Indicates whether the reference is to the speaker (1st), listener (2nd) or a third party"@en ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+// <#referentType> removed - is it useful?
+
+<#register> a owl:ObjectProperty ;
+    rdfs:label "register"@en ;
+    rdfs:comment "Indicates the level of formality of a term in a language"@en ;
+    rdfs:range <#Register> ;
+    rdfs:domain ontolex:LexicalSense ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+// <#temporalQualifier> merged with <#dating>
+
+<#tense> a owl:ObjectProperty ;
+    rdfs:label "tense"@en ;
+    rdfs:comment "Indicates the time of occurence relative to the speaker's current frame of reference"@en ;
+    rdsf:range <#Tense> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#termElement> a owl:ObjectProperty ;
+    rdfs:label "term element"@en ;
+    rdfs:comment "Used to indicate the particular kind of affix, e.g., prefix"@en ;
+    rdfs:range <#TermElement> ;
+    rdfs:subPropertyOf <#morphosyntacticProperty> .
+
+<#termType> a owl:ObjectProperty ;
+    rdfs:label "term type"@en ;
+    rdfs:comment "Used to indicate the type of a term, in particular if it falls into a syntactic category not typically considered a part-of-speech"@en ;
+    rdfs:range <#TermType> ;
+    rdfs:subProperty <#morphosyntacticProperty> .
+
+<#voice> a owl:ObjectProperty ;
+    rdfs:label "voice"@en ;
+    rdfs:comment "Indicates the relationship between the subject and object"@en ;
+    rdfs:range <#Voice> ;
+    rdfs:subProperty <#morphosyntacticProperty> .
+
+###############################################################################
+## Data properties
+
+<#confidence> a owl:DatatypeProperty ;
+    rdfs:label "confidence"@en ;
+    rdfs:comment "Used to give the confidence of a relationship. It is recommended to create a subproperty to give a more precise meaning to this property"@en .
+
+<#translationConfidence> a owl:DatatypeProperty ;
+    rdfs:label "translation confidence"@en ;
+    rdfs:comment "The confidence of a translation. It is recommended to create a subproperty to give a more precise meaning to this property"@en ;
+    rdfs:range vartrans:Translation .
+
+###############################################################################
+## Representations
+
+<#romanization> a owl:DatatypeProperty ;
+    rdfs:label "romanization"@en ;
+    rdfs:comment "For a language not officially written in the Latin script, gives a representation of the word in Latin letters."@en ;
+    rdfs:subPropertyOf <#transliteration> .
+
+<#segmentation> a owl:DatatypeProperty ;
+    rdfs:label "segmentation"@en ;
+    rdfs:comment "Gives the word divided in to syllables, typically with the '|' symbol"@en ;
+    rdfs:subPropertyOf ontolex:representation .
+
+<#transliteration> a owl:DatatypeProperty ;
+    rdfs:label "transliteration"@en ;
+    rdfs:comment "A version of the word written in another script"@en ;
+    rdfs:subPropertyOf ontolex:representation .
+
 ###############################################################################
 ## Annotations
 
@@ -422,9 +1825,58 @@
 // <#gloss> removed - use skos:definition
 // <#note> removed - use rdfs:comment
 
+<#senseExample> a owl:AnnotationProperty ;
+    rdfs:label "sense example"@en ;
+    rdfs:comment "An example of a sense used in context"@en .
+
 ###############################################################################
 ## Word classes
 
 <#Clitic> a owl:Class .
 
 // Preposition modificationType only premodified
+
+###############################################################################
+## Phrases
+
+<#AdjectivePhrase> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            ontolex:MultiwordExpression ;
+            [ a owl:Restriction ;
+              owl:onProperty <#head> ;
+              owl:someValuesFrom <#Adjective> ] ) ] .
+
+<#AdverbPhrase> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            ontolex:MultiwordExpression ;
+            [ a owl:Restriction ;
+              owl:onProperty <#head> ;
+              owl:someValuesFrom <#Adverb> ] ) ] .
+
+<#NounPhrase> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            ontolex:MultiwordExpression ;
+            [ a owl:Restriction ;
+              owl:onProperty <#head> ;
+              owl:someValuesFrom <#Noun> ] ) ] .
+
+<#PrepositionPhrase> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            ontolex:MultiwordExpression ;
+            [ a owl:Restriction ;
+              owl:onProperty <#head> ;
+              owl:someValuesFrom <#Preposition> ] ) ] .
+
+<#VerbPhrase> a owl:Class ;
+    owl:equivalentClass [
+        owl:intersectionOf (
+            ontolex:MultiwordExpression ;
+            [ a owl:Restriction ;
+              owl:onProperty <#head> ;
+              owl:someValuesFrom <#Verb> ] ) ] .
+
+
