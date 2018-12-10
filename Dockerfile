@@ -16,5 +16,6 @@ RUN rm /etc/apache2/sites-enabled/example.com.conf
 ADD 000-default.conf /etc/apache2/sites-available/
 RUN ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN chmod -R a+r /var/www/html
+RUN a2enmod rewrite
 
 CMD service apache2 start && sleep infinity
