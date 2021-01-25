@@ -1,9 +1,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix terms: <http://purl.org/dc/terms/> .
-@prefix vann: <http://purl.org/vocab/vann/> .
-@prefix : <http://www.lexinfo.net/ontology/3.0/lexinfo#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://www.lexinfo.net/ontology/3.0/lexinfo#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix terms: <http://purl.org/dc/terms/> .
 @prefix cc: <http://creativecommons.org/ns#> .
 
 <http://www.lexinfo.net/ontology/3.0/lexinfo>
@@ -4746,6 +4746,10 @@ In 1951: Any editorial comment."""@en ;
 Note: moved to lexeme element from being an independent element; note that this is currently an independent element in 12620"""@en ;
     rdfs:label "morphological element"@en ;
     owl:priorVersion <http://www.lexinfo.net/ontology/2.0/lexinfo#morphologicalElement> .
+
+:morphosyntacticProperty
+    a owl:ObjectProperty ;
+    rdfs:label "morphosyntactic property"@en .
 
 :multiplicativeNumeral
     a :PartOfSpeech, owl:Thing ;
